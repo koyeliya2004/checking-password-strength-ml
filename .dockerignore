@@ -53,5 +53,9 @@ LICENSE
 vercel.json
 DEPLOYMENT.md
 
-# Models at root level (we copy only needed ones explicitly)
+# Models at root level - we need specific ones for the app
 /*.pkl
+# But allow these essential models
+!enhancedpasswordmodel.pkl
+!password_improvement_model.pkl
+!tfidf_vectorizer_1.pkl

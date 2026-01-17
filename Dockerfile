@@ -18,8 +18,8 @@ RUN pip install --no-cache-dir -r requirements-consolidated.txt
 # Copy the entire application
 COPY password-ml-app/ ./password-ml-app/
 
-# Copy model files from root to the app models directory
-# This ensures models are accessible in the container
+# Copy essential model files from root to the app models directory
+# These are needed for ML predictions
 COPY enhancedpasswordmodel.pkl ./password-ml-app/models/
 COPY password_improvement_model.pkl ./password-ml-app/models/
 COPY tfidf_vectorizer_1.pkl ./password-ml-app/models/

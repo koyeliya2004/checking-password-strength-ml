@@ -127,3 +127,29 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+/tmp/
+*.tmp
+
+# Debug files (keep model files but exclude debug scripts)
+run_model_debug*.py
+test_all_vectorizers.py
+
+# Large archives (models should be committed individually, not as archives)
+*.zip
+!.github/
+
+# Resaved model duplicates (keep only the primary versions)
+*_resaved.pkl
