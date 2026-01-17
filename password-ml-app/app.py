@@ -53,8 +53,13 @@ def api_analyze():
 def result_page():
     # Accepts form POSTs (from the main page) and renders a standalone result page
     password = request.form.get("password", "")
-    res = password_assistant_with_reuse(password)
-    return render_template("result.html", result=res)
+    logger.info(f"Result page request for password of length {len(password)}")
+    try:
+        res = password_assistant_with_reuse(password)
+        return render_template("result.html", result=res)
+    except Exception as e:
+        logger.error(f"Error in result page: {e}", exc_info=True)
+        return render_template("result.html", result={"error": "Failed to analyze password"})
 
 
 @app.route("/health")

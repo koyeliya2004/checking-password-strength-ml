@@ -226,5 +226,5 @@ Your deployment is successful when:
 
 ---
 
-**Last Updated**: January 2024  
+**Last Updated**: January 2026  
 **Version**: 1.0.0
