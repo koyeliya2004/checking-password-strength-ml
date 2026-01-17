@@ -1,0 +1,61 @@
+# Git and version control
+.git
+.gitignore
+.github
+
+# Python cache
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Testing
+.pytest_cache
+.coverage
+htmlcov/
+.tox/
+
+# Documentation
+*.md
+!README.md
+
+# Jupyter notebooks
+*.ipynb
+.ipynb_checkpoints
+
+# Large files and duplicates
+*.zip
+*_resaved.pkl
+run_model_debug*.py
+test_all_vectorizers.py
+
+# Project files
+project.zip
+password_models_all.zip
+Checking Password Strength.ipynb
+Password Strength.csv
+LICENSE
+
+# Deployment configs (not needed in container)
+vercel.json
+DEPLOYMENT.md
+
+# Models at root level - we need specific ones for the app
+/*.pkl
+# But allow these essential models
+!enhancedpasswordmodel.pkl
+!password_improvement_model.pkl
+!tfidf_vectorizer_1.pkl
