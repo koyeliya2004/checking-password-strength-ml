@@ -1,1 +1,1 @@
-web: python -m gunicorn app:app --chdir password-ml-app --bind 0.0.0.0:$PORT
+web: cd password-ml-app && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --access-logfile - --error-logfile - app:app

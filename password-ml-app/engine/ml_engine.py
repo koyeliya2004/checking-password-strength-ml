@@ -84,9 +84,14 @@ def _load_model(filename):
     for p in candidates:
         try:
             if p.exists():
-                return joblib.load(str(p))
-        except Exception:
+                logger.info(f"Loading model from: {p}")
+                model = joblib.load(str(p))
+                logger.info(f"Successfully loaded model: {filename}")
+                return model
+        except Exception as e:
+            logger.warning(f"Failed to load model from {p}: {e}")
             continue
+    logger.error(f"Model file '{filename}' not found in any of: {[str(c) for c in candidates]}")
     raise FileNotFoundError(f"Model file '{filename}' not found in {candidates}")
 
 
@@ -96,14 +101,21 @@ def initialize_models():
     `enhancedpasswordmodel.pkl` as fallback for predicted_strength.
     """
     global _models
+    logger.info("Initializing models...")
+    
     # Strength predictors
     try:
         _models['primary_strength'] = _load_model('enhanced_password_model_1.pkl')
-    except Exception:
+        logger.info("Primary strength model loaded successfully")
+    except Exception as e:
+        logger.warning(f"Failed to load primary strength model: {e}")
         _models['primary_strength'] = None
+    
     try:
         _models['fallback_strength'] = _load_model('enhancedpasswordmodel.pkl')
-    except Exception:
+        logger.info("Fallback strength model loaded successfully")
+    except Exception as e:
+        logger.warning(f"Failed to load fallback strength model: {e}")
         _models['fallback_strength'] = None
 
     # vectorizer for transforming input
@@ -164,7 +176,9 @@ def initialize_models():
     # improvement model (optional) to generate suggestions
     try:
         _models['improvement'] = _load_model('password_improvement_model.pkl')
-    except Exception:
+        logger.info("Improvement model loaded successfully")
+    except Exception as e:
+        logger.warning(f"Failed to load improvement model: {e}")
         _models['improvement'] = None
 
     # load reuse list (simple plain-text list of known reused passwords)
@@ -178,9 +192,13 @@ def initialize_models():
                 ln = ln.strip()
                 if ln:
                     reuse.add(ln)
-    except Exception:
+            logger.info(f"Loaded {len(reuse)} passwords from reuse list: {reuse_file}")
+    except Exception as e:
+        logger.warning(f"Failed to load reuse list: {e}")
         reuse = set()
     _models['reuse_list'] = reuse
+    
+    logger.info(f"Model initialization complete. Loaded models: {[k for k, v in _models.items() if v is not None and k != 'reuse_list']}")
 
 
 def _predict_strength(password):
